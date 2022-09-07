@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+package market;
+
+import "google/protobuf/timestamp.proto";
+import "common/common.proto";
+
+option go_package = "emarket-gateway-service/client/market";
+option java_package = "com.market.market";
+option java_multiple_files = true;
+
+///////////////////////////////////////////////////////////////////
+// Market Enums
+///////////////////////////////////////////////////////////////////
+enum MarketState {
+  MARKET_STATE_UNSPECIFIED = 0;
+  MARKET_STATE_UNPUBLISHED = 1;
+  MARKET_STATE_PUBLISHED = 2;
+}
+
+enum MarketStatus {
+  MARKET_STATUS_UNSPECIFIED = 0;
+  MARKET_STATUS_INACTIVE = 1;
+  MARKET_STATUS_ACTIVE = 2;
+  MARKET_STATUS_FRANCHISE_EXPIRED = 3;
+}
+
+enum MarketType {
+  MARKET_TYPE_UNSPECIFIED = 0;
+  MARKET_TYPE_PUBLIC = 1;
+  MARKET_TYPE_PRIVATE = 2;
+  MARKET_TYPE_HAWKER = 3;
+  MARKET_TYPE_TALIPAPA = 4;
+}
+
+enum MarketClass {
+  MARKET_CLASS_UNSPECIFIED = 0;
+  MARKET_CLASS_A = 1;
+  MARKET_CLASS_B = 2;
+  MARKET_CLASS_C = 3;
+}
+
+///////////////////////////////////////////////////////////////////
+// Floor Enums
+///////////////////////////////////////////////////////////////////
+enum FloorState {
+  FLOOR_STATE_UNSPECIFIED = 0;
+  FLOOR_STATE_UNPUBLISHED = 1;
+  FLOOR_STATE_PUBLISHED = 2;
+}
+
+///////////////////////////////////////////////////////////////////
+// Stall Enums
+///////////////////////////////////////////////////////////////////
+enum StallClass {
+  STALL_CLASS_UNSPECIFIED = 0;
+  STALL_CLASS_REGULAR = 1;
+  STALL_CLASS_FRONT_CORNER = 2;
+  STALL_CLASS_FRONT = 3;
+  STALL_CLASS_INSIDE_CORNER = 4;
+}
+
+enum StallState {
+  STALL_STATE_UNSPECIFIED = 0;
+  STALL_STATE_UNPUBLISHED = 1;
+  STALL_STATE_PUBLISHED = 2;
+}
+
+enum StallStatus {
+  STALL_STATUS_UNSPECIFIED = 0;
+  STALL_STATUS_INACTIVE = 1;
+  STALL_STATUS_ACTIVE = 2;
+}
+
+enum StallType {
+  STALL_TYPE_UNSPECIFIED = 0;
+  STALL_TYPE_TEMPORARY = 1;
+  STALL_TYPE_PERMANENT = 2;
+}
+enum Choice {
+  FALSE = 0;
+  TRUE = 1;
+  NOT_GIVEN = 2;
+}
+enum StallLeaseStatus {
+  STALL_AVAILABLE = 0;
+  STALL_RESERVED = 1;
+  STALL_OCCUPIED = 2;
+}
+
+enum HawkerSiteType {
+  NOT_HAWKER = 0;
+  VENDING_SITE = 1;
+  AMBULANT = 2;
+}
+
+enum DayOfWeek {
+  INVALID_DAY = 0;
+  MONDAY = 1;
+  TUESDAY = 2;
+  WEDNESDAY = 3;
+  THURSDAY = 4;
+  FRIDAY = 5;
+  SATURDAY = 6;
+  SUNDAY = 7;
+}
+
+message CountStallsResponse {
+  message Data {
+    int64 total_stalls = 1;
+    google.protobuf.Timestamp available_date = 2;
+    int64 available_stalls = 3;
+    int64 reserved_stalls = 4;
+    int64 occupied_stalls = 5;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+///////////////////////////////////////////////////////////////////
+// List Market
+///////////////////////////////////////////////////////////////////
+message ListMarketsRequest {
+  common.PageRequest page_request = 1;
+  optional string search_term = 2;
+  repeated market.MarketType types = 3;
+  repeated market.HawkerSiteType site_types = 4;
+  bool all = 5;
+  string name = 6;
+  repeated string codes = 7;
+  bool published_only = 8;
+}
