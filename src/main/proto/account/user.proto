@@ -2,11 +2,10 @@ syntax = "proto3";
 
 package account;
 
-import "google/protobuf/empty.proto";
 import "common/common.proto";
 import "market/constant.proto";
 
-option go_package = "emarket-gateway-service/client/account";
+option go_package = "gateway-service/client/account";
 option java_package = "com.market.account";
 option java_multiple_files = true;
 
