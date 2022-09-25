@@ -16,17 +16,17 @@ public class GrpcAutoBot extends GrpcPrincipal {
 
     static {
         instance = new GrpcAutoBot();
-        instance.setExternalId("emarket-autobot");
+//        instance.setExternalId("emarket-autobot");
         instance.setUsername("autobot@qcemarket.com");
         instance.setEmail("autobot@qcemarket.com");
         instance.setFirstName("eMarket");
         instance.setLastName("System");
         instance.setRoles(List.of("SYSTEM_ADMIN"));
-        instance.setDivisions(List.of(
-                MarketType.MARKET_TYPE_PUBLIC_VALUE,
-                MarketType.MARKET_TYPE_PRIVATE_VALUE,
-                MarketType.MARKET_TYPE_HAWKER_VALUE
-        ));
+////        instance.setDivisions(List.of(
+//                MarketType.MARKET_TYPE_PUBLIC_VALUE,
+//                MarketType.MARKET_TYPE_PRIVATE_VALUE,
+//                MarketType.MARKET_TYPE_HAWKER_VALUE
+//        ));
     }
 
     private GrpcAutoBot() {

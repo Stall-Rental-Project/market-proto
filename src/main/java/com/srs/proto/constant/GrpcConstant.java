@@ -44,14 +44,14 @@ public class GrpcConstant {
     /////////////////////////////////////////////////////////////////////////////////
 
     public static final String USER_ID = "user_id";
-    public static final String EXTERNAL_ID = "external_id";
+//    public static final String EXTERNAL_ID = "external_id";
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
     public static final String ROLES = "roles";
     public static final String PERMISSIONS = "permissions";
-    public static final String DIVISIONS = "divisions";
+//    public static final String DIVISIONS = "divisions";
     public static final String MARKET_CODES = "market_codes";
     public static final String ROLE_IDS = "role_ids";
 }

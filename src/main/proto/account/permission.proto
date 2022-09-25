@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package account;
+
+import "common/common.proto";
+
+option go_package = "gateway-service/client/account";
+option java_package = "com.srs.account";
+option java_multiple_files = true;
+
+service PermissionService {
+  rpc ListPermissionsByUser(common.FindByIdRequest) returns (ListPermissionByUserResponse) {};
+  rpc ListPermissions(ListPermissionsRequest) returns (common.ListResponse) {};
+
+  rpc ListPermissionCategories(ListPermissionCategoryRequest) returns (common.ListResponse) {};
+}
+
+message Permission {
+  string permission_id = 1;
+  string code = 2;
+  string name = 3;
+  string permission_category = 4;
+  string description = 5;
+}
+
+message RolePermission {
+  repeated Permission permissions = 1;
+  repeated string role_ids = 2;
+}
+
+message ListPermissionByUserResponse {
+  message Data {
+    RolePermission role_permission = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message ListPermissionsRequest {
+  string role_codes = 1; // comma-separated
+}
+
+message ListPermissionCategoryRequest {
+  string name = 2;
+}
+
+message PermissionCategory {
+  string permission_category_id = 1;
+  string name = 2;
+  string description = 3;
+  repeated account.Permission permissions = 4;
+}

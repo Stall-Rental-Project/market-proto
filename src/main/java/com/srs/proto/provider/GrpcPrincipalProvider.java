@@ -49,7 +49,7 @@ public class GrpcPrincipalProvider {
         GrpcPrincipal identity = new GrpcPrincipal();
 
         identity.setUserId(UUID.fromString(claims.get(USER_ID, String.class)));
-        identity.setExternalId(claims.get(EXTERNAL_ID, String.class));
+//        identity.setExternalId(claims.get(EXTERNAL_ID, String.class));
 
         identity.setUsername(claims.get(USERNAME, String.class));
         identity.setEmail(claims.get(EMAIL, String.class));
@@ -60,8 +60,8 @@ public class GrpcPrincipalProvider {
 
         identity.setPermissions(claims.get(PERMISSIONS, List.class));
 
-        identity.setDivisions(claims.get(DIVISIONS, List.class));
-
+//        identity.setDivisions(claims.get(DIVISIONS, List.class));
+//
         identity.setMarketCodes(claims.get(MARKET_CODES, List.class));
 
         identity.setRoleIds(claims.get(ROLE_IDS, List.class));
@@ -78,7 +78,7 @@ public class GrpcPrincipalProvider {
         Map<String, Object> additionalClaims = new LinkedHashMap<>();
 
         additionalClaims.put(USER_ID, principal.getUserId().toString());
-        additionalClaims.put(EXTERNAL_ID, principal.getExternalId());
+//        additionalClaims.put(EXTERNAL_ID, principal.getExternalId());
 
         additionalClaims.put(EMAIL, principal.getEmail());
         additionalClaims.put(USERNAME, principal.getUsername());
@@ -87,7 +87,7 @@ public class GrpcPrincipalProvider {
 
         additionalClaims.put(ROLES, principal.getRoles());
         additionalClaims.put(PERMISSIONS, principal.getPermissions());
-        additionalClaims.put(DIVISIONS, principal.getDivisions());
+//        additionalClaims.put(DIVISIONS, principal.getDivisions());
         additionalClaims.put(MARKET_CODES, principal.getMarketCodes() != null ? principal.getMarketCodes() : new ArrayList<String>());
         additionalClaims.put(ROLE_IDS, principal.getRoleIds());
 

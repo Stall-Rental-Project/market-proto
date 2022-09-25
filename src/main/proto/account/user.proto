@@ -34,10 +34,10 @@ message User {
   string last_name = 4;
   string email = 5;
   common.Status status = 6;
-  string external_id = 12;
-  repeated string market_codes = 13;
+//  string external_id = 12;
+//  repeated string market_codes = 13;
   repeated string roles = 15;
-  repeated market.MarketType divisions = 16;
+//  repeated market.MarketType divisions = 16;
   repeated string role_ids = 17;
   repeated string role_codes = 18;
   repeated string permissions = 19;
@@ -67,15 +67,15 @@ message GetUserResponse {
 message UpsertUserRequest {
   // Insert only
   string email = 1;
-  string external_id = 2;
+//  string external_id = 2;
 
   string first_name = 3;
   string last_name = 4;
   string middle_name = 5;
   common.Status status = 6;
-  repeated string market_codes = 13;
-  repeated string role_ids = 16;
-  repeated market.MarketType divisions = 17;
+//  repeated string market_codes = 13;
+  repeated string role_ids = 7;
+//  repeated market.MarketType divisions = 17;
 }
 
 message ListUserRecipientsRequest {

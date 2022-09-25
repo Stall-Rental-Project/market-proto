@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class GrpcPrincipal implements Serializable {
     private UUID userId;
-    private String externalId;
+//    private String externalId;
     private String username;
     private String email;
     private String firstName;
@@ -16,7 +16,7 @@ public class GrpcPrincipal implements Serializable {
     private List<String> roles;
 
     private List<String> permissions = new ArrayList<>();
-    private List<Integer> divisions = new ArrayList<>();
+//    private List<Integer> divisions = new ArrayList<>();
 
     /**
      * For Office-based Users only to indicate which market he/she has access to. It is limited by divisions, when empty, it indicates that user has access to all market under specified divisions
@@ -31,14 +31,6 @@ public class GrpcPrincipal implements Serializable {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
-    }
-
-    public String getExternalId() {
-        return externalId;
-    }
-
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
     }
 
     public String getUsername() {
@@ -97,12 +89,12 @@ public class GrpcPrincipal implements Serializable {
         this.permissions = permissions;
     }
 
-    public List<Integer> getDivisions() {
-        return divisions;
+    public List<String> getRoleIds() {
+        return roleIds;
     }
 
-    public void setDivisions(List<Integer> divisions) {
-        this.divisions = divisions;
+    public void setRoleIds(List<String> roleIds) {
+        this.roleIds = roleIds;
     }
 
     public List<String> getMarketCodes() {
@@ -111,13 +103,5 @@ public class GrpcPrincipal implements Serializable {
 
     public void setMarketCodes(List<String> marketCodes) {
         this.marketCodes = marketCodes;
-    }
-
-    public List<String> getRoleIds() {
-        return roleIds;
-    }
-
-    public void setRoleIds(List<String> roleIds) {
-        this.roleIds = roleIds;
     }
 }
