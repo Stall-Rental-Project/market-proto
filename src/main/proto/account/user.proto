@@ -3,7 +3,7 @@ syntax = "proto3";
 package account;
 
 import "common/common.proto";
-import "market/constant.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "gateway-service/client/account";
 option java_package = "com.market.account";
@@ -11,13 +11,10 @@ option java_multiple_files = true;
 
 service UserService {
   rpc ListUsers(ListUsersRequest) returns (common.PageResponse) {};
-  rpc ListUsersByExternalIds(common.FindByCodesRequest) returns (common.ListResponse) {};
   rpc ListUsersByEmail(common.FindByCodeRequest) returns (common.ListResponse) {};
   /**
    * This API returns list of active users that can be used as notification recipient
    */
-  rpc ListUserRecipients(ListUserRecipientsRequest) returns (common.PageResponse) {};
-
   rpc GetUser(common.FindByCodeRequest) returns (GetUserResponse) {};
 
   rpc CreateUser(UpsertUserRequest) returns (common.NoContentResponse) {};
@@ -25,6 +22,9 @@ service UserService {
   rpc UpdateUser(UpsertUserRequest) returns (common.NoContentResponse) {};
 
   rpc DeleteUser(common.FindByCodeRequest) returns (common.NoContentResponse) {};
+
+  rpc GetCurrentUser(google.protobuf.Empty) returns (GetCurrentUserResponse) {};
+
 }
 
 message User {
@@ -34,13 +34,11 @@ message User {
   string last_name = 4;
   string email = 5;
   common.Status status = 6;
-//  string external_id = 12;
-//  repeated string market_codes = 13;
-  repeated string roles = 15;
-//  repeated market.MarketType divisions = 16;
-  repeated string role_ids = 17;
-  repeated string role_codes = 18;
-  repeated string permissions = 19;
+  repeated string market_codes = 7;
+  repeated string roles = 8;
+  repeated string role_ids = 9;
+  repeated string role_codes = 10;
+  repeated string permissions = 11;
 }
 
 message ListUsersRequest {
@@ -67,18 +65,26 @@ message GetUserResponse {
 message UpsertUserRequest {
   // Insert only
   string email = 1;
-//  string external_id = 2;
+  string user_id = 2;
 
   string first_name = 3;
   string last_name = 4;
   string middle_name = 5;
   common.Status status = 6;
-//  repeated string market_codes = 13;
   repeated string role_ids = 7;
-//  repeated market.MarketType divisions = 17;
+  repeated string market_codes = 8;
+
+  //  repeated market.MarketType divisions = 17;
 }
 
-message ListUserRecipientsRequest {
-  common.PageRequest page_request = 1;
-  string name = 2;
+message GetCurrentUserResponse {
+  message Data {
+    User user = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
 }

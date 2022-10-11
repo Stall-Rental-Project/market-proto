@@ -29,6 +29,21 @@ enum Status {
   ACTIVE = 1;
 }
 
+
+
+message SuccessResponse {
+  string        message = 1;
+  google.protobuf.Any data = 2;
+}
+
+
+message BaseResponse {
+  oneof response {
+    SuccessResponse success_response = 1;
+    ErrorResponse   error_response = 2;
+  }
+}
+
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 //

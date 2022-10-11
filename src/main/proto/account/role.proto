@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package account;
+
+import "common/common.proto";
+
+option go_package = "gateway-service/client/account";
+option java_package = "com.srs.account";
+option java_multiple_files = true;
+
+service RoleService {
+  // unary
+  rpc FindAllByIds(common.FindByIdsRequest) returns (common.PageResponse) {};
+
+  rpc ListRoles(ListRoleRequest) returns (common.PageResponse) {};
+
+  rpc GetRole(common.FindByIdRequest) returns (GetRoleResponse) {};
+
+  rpc CreateRole(UpsertRoleRequest) returns (common.NoContentResponse) {};
+  rpc UpdateRole(UpsertRoleRequest) returns (common.NoContentResponse){};
+
+  rpc DeleteRole(common.FindByIdRequest) returns (common.NoContentResponse) {};
+
+
+}
+
+message Role {
+  string role_id = 1;
+  string name = 2;
+  string code = 3;
+  string description = 4;
+  repeated string permission_ids = 5;
+  common.Status status = 6;
+}
+
+message GetRoleResponse {
+  message Data {
+    Role role = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message UpsertRoleRequest {
+  optional string role_id = 1; // only set when update
+  string name = 2;
+  string description = 3;
+  common.Status status = 5;
+  string code = 6;
+  repeated string permission_ids = 7;
+}
+
+message ListRoleRequest {
+  common.PageRequest  page_request = 1;
+  string name = 2;
+  optional common.Status status = 3;
+  bool include_public = 5;
+}
