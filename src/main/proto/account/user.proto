@@ -47,7 +47,6 @@ message ListUsersRequest {
   optional common.Status status = 3;
   repeated string role_ids = 4;
   bool include_public = 5;
-  bool search_email_only = 6;
 }
 
 message GetUserResponse {
