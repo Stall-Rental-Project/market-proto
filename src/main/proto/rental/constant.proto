@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package rental;
+
+option go_package = "gateway-service/client/rental";
+option java_package = "com.srs.rental";
+option java_multiple_files = true;
+
+
+enum RateType {
+  STALL_RENTAL_RATE = 0;
+  STALL_RIGHTS_RATE = 1;
+  STALL_SECURITY_BOND = 2;
+  OTHER_RATES = 3;
+}
+
+enum OtherRateDetail {
+  NEW_STALL_APPLICATION_FEE = 0;
+  RENEWAL_STALL_APPLICATION_FEE = 1;
+  TRANSFER_STALL_APPLICATION_FEE = 2;
+  TRANSFER_FEE = 3;
+  REPAIR_PERMIT_FEE = 4;
+}
+

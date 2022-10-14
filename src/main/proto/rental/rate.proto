@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package rental;
+
+import "google/protobuf/empty.proto";
+import "common/common.proto";
+import "market/constant.proto";
+import "rental/constant.proto";
+
+option go_package = "gateway-service/client/rental";
+option java_package = "com.srs.rental";
+option java_multiple_files = true;
+
+service RateService {
+  rpc ListRates(ListRatesRequest) returns (common.PageResponse) {};
+
+  rpc GetRate(GetRateRequest) returns (GetRateResponse) {};
+
+  rpc CreateRate(UpsertRateRequest) returns (common.OnlyCodeResponse) {};
+
+  rpc UpdateRate(UpsertRateRequest) returns (common.OnlyCodeResponse) {};
+
+}
+
+message Rate {
+  string rate_id = 1;
+  string rate_code = 2;
+  common.Status status = 3;
+  rental.RateType type = 4;
+  // only one of six next fields should be set
+  OtherRate other_rate = 5;
+  StallRentalRate rental_rate = 6;
+  StallRightsRate rights_rate = 7;
+  StallSecurityBond security_bond = 8;
+}
+message OtherRate {
+  rental.OtherRateDetail detail = 1;
+  double amount = 2;
+}
+
+message StallRentalRate {
+  repeated ClassAmountRate class_rental_amounts = 5;
+}
+
+message StallRightsRate {
+  repeated ClassAmountRate class_rights_amounts = 1;
+}
+message ClassAmountRate {
+  market.MarketClass clazz = 1;
+  double amount = 2;
+}
+
+message StallSecurityBond {
+  double rental_fee = 1;
+  double amount = 2;
+}
+
+message ListRatesRequest {
+  common.PageRequest page_request = 1; // sort by code, type, detail
+  repeated rental.RateType types = 2;
+  repeated rental.OtherRateDetail other_rate_details = 3;
+}
+
+message GetRateRequest {
+  string rate_code = 1;
+}
+message GetRateResponse {
+  message Data {
+    Rate rate = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message UpsertRateRequest {
+  optional string rate_code = 1; // applied for update operation only
+  common.Status status = 3;
+  rental.RateType type = 4;
+  // only one of six next fields should be set
+  OtherRate other_rate = 5;
+  StallRentalRate rental_rate = 6;
+  StallRightsRate rights_rate = 7;
+  StallSecurityBond security_bond = 8;
+}
