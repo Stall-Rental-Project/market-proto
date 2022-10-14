@@ -1,6 +1,6 @@
 package com.srs.proto.common;
 
-import com.market.market.MarketType;
+import com.srs.market.MarketType;
 import com.srs.proto.dto.GrpcPrincipal;
 
 import java.util.List;

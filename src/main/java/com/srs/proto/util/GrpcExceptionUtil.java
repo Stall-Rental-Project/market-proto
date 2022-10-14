@@ -1,8 +1,8 @@
 
 package com.srs.proto.util;
 
-import com.market.common.Error;
-import com.market.common.ErrorCode;
+import com.srs.common.Error;
+import com.srs.common.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
