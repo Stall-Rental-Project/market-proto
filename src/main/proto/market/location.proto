@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package market;
+
+import "common/common.proto";
+
+option go_package = "gateway-service/client/market";
+option java_package = "com.srs.market";
+option java_multiple_files = true;
+
+//////////////////////////////////////////////////////////////////
+// Services
+//////////////////////////////////////////////////////////////////
+service LocationService {
+  rpc ListProvinces(ListProvinceRequest) returns (ListProvinceResponse){};
+  rpc ListCities(ListCityRequest) returns (ListCityResponse){};
+  rpc ListWards(ListWardRequest) returns (ListWardResponse){};
+  rpc ListLocations(common.FindByIdsRequest) returns (common.ListResponse) {};
+  rpc GetLocation(GetLocationRequest) returns (GetLocationResponse){};
+}
+
+//////////////////////////////////////////////////////////////////
+// Request DTO
+//////////////////////////////////////////////////////////////////
+message ListProvinceRequest {
+  string search_term = 1;
+}
+
+message ListCityRequest {
+  string province = 1;
+  string search_term = 2;
+}
+
+message ListWardRequest {
+  string province = 1;
+  string city = 2;
+  string search_term = 3;
+}
+
+message GetLocationRequest {
+  string province = 1;
+  string city = 2;
+  string ward=3;
+}
+
+//////////////////////////////////////////////////////////////////
+// Response DTO
+//////////////////////////////////////////////////////////////////
+message ListProvinceResponse {
+  message Data {
+    repeated string provinces = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message ListCityResponse {
+  message Data {
+    repeated string cities = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message ListWardResponse {
+  message Data {
+    repeated string wards = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message GetLocationResponse {
+  message Data {
+    Location location = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message Location {
+  string location_id = 1;
+  string province = 2;
+  string city = 3;
+  string district = 4;
+  string zipcode = 5;
+  string ward = 6;
+  string address = 7;
+}
+
