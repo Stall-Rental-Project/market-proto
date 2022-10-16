@@ -128,9 +128,8 @@ message ListMarketsRequest {
   common.PageRequest page_request = 1;
   optional string search_term = 2;
   repeated market.MarketType types = 3;
-  repeated market.HawkerSiteType site_types = 4;
+  repeated market.MarketStatus statuses = 4;
   bool all = 5;
-  string name = 6;
-  repeated string codes = 7;
-  bool published_only = 8;
+  repeated string codes = 6;
+  bool published_only = 7;
 }

@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package market;
+
+import "common/common.proto";
+import "market/constant.proto";
+import "market/location.proto";
+import "market/supervisor.proto";
+
+option go_package = "gateway-service/client/market";
+option java_package = "com.srs.market";
+option java_multiple_files = true;
+
+service MarketService {
+  rpc ListMarkets(ListMarketsRequest) returns (common.PageResponse) {};
+
+  rpc CreateMarket(UpsertMarketRequest) returns (common.OnlyIdResponse);
+  rpc GetMarket(GetMarketRequest) returns (GetMarketResponse) {};
+  rpc UpdateMarket(UpsertMarketRequest) returns (UpdateMarketResponse) {};
+  rpc DeleteMarket(common.FindByIdRequest) returns (common.NoContentResponse) {};
+
+}
+
+message MarketLocation {
+  string province = 1;
+  string city = 2;
+  string ward = 3;
+  string address = 4;
+}
+
+message Market {
+  string market_id = 1;
+  string name = 2;
+  market.Location location = 3;
+  market.MarketType type = 4;
+  market.MarketStatus status = 5;
+  market.MarketState state = 6;
+  bool has_published = 7;
+  bool has_draft = 8;
+  string full_address = 13;
+  market.Supervisor supervisor = 14;
+  int64 available_date = 15;
+  string google_map = 16;
+  string code = 17;
+  market.MarketClass clazz = 18;
+  bool has_deleted = 20;
+
+}
+///////////////////////////////////////////////////////////////////
+// Get Market
+///////////////////////////////////////////////////////////////////
+message GetMarketRequest {
+  string market_id = 1;
+  optional bool draft = 2;
+  string code = 3;
+}
+
+message GetMarketResponse {
+  message Data {
+    Market market = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+///////////////////////////////////////////////////////////////////
+// Update Market
+///////////////////////////////////////////////////////////////////
+message UpsertMarketRequest {
+  string market_id = 1;
+  optional string name = 2;
+  optional MarketLocation location = 3;
+  optional market.Supervisor supervisor = 4;
+  optional market.MarketType type = 5;
+  optional market.MarketClass clazz = 6;
+  optional market.MarketStatus status = 7;
+  optional string google_map = 8;
+}
+
+message UpdateMarketResponse {
+  message Data {
+    string market_id = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}

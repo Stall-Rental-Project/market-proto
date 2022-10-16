@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package market;
+
+option go_package = "gateway-service/client/market";
+option java_package = "com.srs.market";
+option java_multiple_files = true;
+
+message Supervisor {
+  string first_name = 1;
+  string middle_name = 2;
+  string last_name = 3;
+  string position = 4;
+  string telephone = 5;
+  string mobile_phone = 6;
+  string email = 7;
+  string supervisor_id = 8;
+}
