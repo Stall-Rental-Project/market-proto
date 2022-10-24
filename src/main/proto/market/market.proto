@@ -13,7 +13,6 @@ option java_multiple_files = true;
 
 service MarketService {
   rpc ListMarkets(ListMarketsRequest) returns (common.PageResponse) {};
-
   rpc CreateMarket(UpsertMarketRequest) returns (common.OnlyIdResponse);
   rpc GetMarket(GetMarketRequest) returns (GetMarketResponse) {};
   rpc UpdateMarket(UpsertMarketRequest) returns (UpdateMarketResponse) {};

@@ -20,6 +20,9 @@ service RateService {
 
   rpc UpdateRate(UpsertRateRequest) returns (common.OnlyCodeResponse) {};
 
+  rpc DeleteRate(common.FindByIdRequest) returns (common.NoContentResponse) {};
+
+
 }
 
 message Rate {
@@ -78,6 +81,7 @@ message GetRateResponse {
 
 message UpsertRateRequest {
   optional string rate_code = 1; // applied for update operation only
+  optional string rate_id=2;
   common.Status status = 3;
   rental.RateType type = 4;
   // only one of six next fields should be set

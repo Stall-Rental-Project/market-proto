@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package market;
+
+import "common/common.proto";
+import "market/constant.proto";
+
+option go_package = "gateway-service/client/market";
+option java_package = "com.srs.market";
+option java_multiple_files = true;
+
+service StallService {
+}
+message Point {
+  double x_axis = 1;
+  double y_axis = 2;
+}
+///////////////////////////////////////////////////////////////////
+// Shared payloads
+///////////////////////////////////////////////////////////////////
+message Stall {
+  string stall_id = 1;
+  string code = 2;
+  string name = 3;
+  market.StallStatus status = 4; // Default to Inactive
+  market.StallType type = 5; // Default to Temporary
+  market.StallClass clazz = 6; // Default to Regular
+  market.StallState state = 7;
+  common.Numeric2TextMetadata stall_status = 8;
+  common.Numeric2TextMetadata stall_type = 9;
+  common.Numeric2TextMetadata stall_clazz = 10;
+  common.Numeric2TextMetadata stall_state = 11;
+  double area = 12;
+  double monthly_fee = 13;
+  string previous_version = 14;
+
+  string floor_code = 17;
+  string market_code = 18;
+  common.Numeric2TextMetadata lease_status = 19;
+
+  // Position data
+  string shape = 20;
+  double x_axis = 21;
+  double y_axis = 22;
+  double w_axis = 23;
+  double h_axis = 24;
+  repeated Point points = 25;
+  string label = 26;
+  int32 rotate = 27;
+  double font_size = 30;
+
+  market.MarketClass market_class = 28;
+  market.MarketType market_type = 29;
+
+  string occupied_by = 31;
+
+  // Fetch from rental service
+  string stall_holder_name = 32;
+}
+
+message GetStallResponse {
+  message Data {
+    Stall stall = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message ListStallsResponse {
+  message Data {
+    repeated Stall stalls = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+

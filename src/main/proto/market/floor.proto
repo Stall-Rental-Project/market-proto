@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package market;
+
+import "common/common.proto";
+import "market/stall.proto";
+
+option go_package = "gateway-service/client/market";
+option java_package = "com.srs.market";
+option java_multiple_files = true;
+
+service FloorService {
+  rpc CreateFloor(CreateFloorRequest) returns (CreateFloorResponse) {};
+
+  rpc UpdateFloor(UpdateFloorRequest) returns (UpdateFloorResponse) {};
+
+  rpc GetFloor(GetFloorRequest) returns (GetFloorResponse) {};
+  rpc GetFloorCodeAndMarketCode(common.FindByIdRequest) returns (GetFloorCodeAndMarketCodeResponse) {};
+  rpc GetPublishedFloor(GetPublishedFloorRequest) returns (GetFloorResponse) {};
+
+  rpc ListFloors(ListFloorsRequest) returns (ListFloorsResponse) {};
+  rpc ListPublishedFloors(common.FindByIdRequest) returns (ListFloorsResponse) {};
+
+  rpc DeleteFloor(DeleteFloorRequest) returns (common.NoContentResponse) {};
+}
+
+///////////////////////////////////////////////////////////////////
+// Shared payloads
+///////////////////////////////////////////////////////////////////
+message Floor {
+  string floorplan_id = 1;
+  string name = 2;
+  string code = 3;
+  string image = 4;
+  string previous_version = 5;
+  string floor_data = 6;
+  repeated market.Stall stalls = 7;
+  int64 total_stalls = 10;
+  int64 stall_with_detail = 11;
+}
+
+///////////////////////////////////////////////////////////////////
+// Create Floor
+///////////////////////////////////////////////////////////////////
+message CreateFloorRequest {
+  string market_id = 1;
+  string name = 2;
+  string image = 3;
+}
+
+message CreateFloorResponse {
+  message Data {
+    string market_id = 1;
+    string floorplan_id = 2;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+///////////////////////////////////////////////////////////////////
+// Update Floor
+///////////////////////////////////////////////////////////////////
+message UpdateFloorRequest {
+  string floorplan_id = 1;
+  optional string name = 2;
+  optional string image = 3;
+  optional string floor_data = 4;
+}
+
+message UpdateFloorResponse {
+  message Data {
+    string floorplan_id = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+///////////////////////////////////////////////////////////////////
+// Get Floor
+///////////////////////////////////////////////////////////////////
+message GetFloorRequest {
+  string floorplan_id = 1;
+  optional bool draft = 2;
+}
+
+message GetFloorResponse {
+  message Data {
+    Floor floor = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+///////////////////////////////////////////////////////////////////
+// List Floor
+///////////////////////////////////////////////////////////////////
+message ListFloorsRequest {
+  string market_id = 1;
+  optional bool draft = 2;
+}
+
+message ListFloorsResponse {
+  message Data {
+    repeated Floor floors = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+///////////////////////////////////////////////////////////////////
+// Delete stall
+///////////////////////////////////////////////////////////////////
+message DeleteFloorRequest {
+  string floorplan_id = 1;
+  optional bool draft_only = 2;
+}
+
+message GetFloorCodeAndMarketCodeResponse {
+  message Data {
+    string floor_code = 1;
+    string market_code = 2;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message GetPublishedFloorRequest {
+  string id = 1;
+  bool review_mode = 2;
+}
