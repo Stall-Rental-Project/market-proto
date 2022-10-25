@@ -20,7 +20,7 @@ enum ErrorCode {
   CANNOT_EXECUTE = 7;
   NO_CHANGE = 8;
   RATE_ALREADY_EXISTS=9;
-    ROLE_ALREADY_EXISTS=10;
+  ROLE_ALREADY_EXISTS=10;
 }
 
 enum Status {
