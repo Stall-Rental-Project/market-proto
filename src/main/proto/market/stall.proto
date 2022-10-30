@@ -26,17 +26,13 @@ message Stall {
   market.StallType type = 5; // Default to Temporary
   market.StallClass clazz = 6; // Default to Regular
   market.StallState state = 7;
-  common.Numeric2TextMetadata stall_status = 8;
-  common.Numeric2TextMetadata stall_type = 9;
-  common.Numeric2TextMetadata stall_clazz = 10;
-  common.Numeric2TextMetadata stall_state = 11;
   double area = 12;
   double monthly_fee = 13;
   string previous_version = 14;
 
   string floor_code = 17;
   string market_code = 18;
-  common.Numeric2TextMetadata lease_status = 19;
+  market.StallLeaseStatus lease_status = 19;
 
   // Position data
   string shape = 20;
@@ -80,5 +76,25 @@ message ListStallsResponse {
     Data data = 2;
     common.Error error = 3;
   }
+}
+
+
+
+message StallInfo {
+  string stall_id = 1;
+  string code = 2;
+  string stall_name = 3;
+  market.StallType stall_type = 4;
+  market.StallClass stall_class = 5;
+  string market_id = 6;
+  string market_name = 7;
+  string market_code = 8;
+  market.MarketType market_type = 9;
+  market.MarketClass market_class = 10;
+  string floor_code = 11;
+  string floor_name = 12;
+  double area = 13;
+  market.StallLeaseStatus lease_status = 15;
+  string market_address = 16;
 }
 

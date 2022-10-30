@@ -21,6 +21,7 @@ enum ErrorCode {
   NO_CHANGE = 8;
   RATE_ALREADY_EXISTS=9;
   ROLE_ALREADY_EXISTS=10;
+  FILE_TOO_LARGE = 11;
 }
 
 enum Status {
