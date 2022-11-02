@@ -10,7 +10,34 @@ option java_package = "com.srs.market";
 option java_multiple_files = true;
 
 service StallService {
+  rpc CreateStall(CreateStallRequest) returns (GetStallResponse) {};
+  rpc GetStall(GetStallRequest) returns (GetStallResponse) {};
+  rpc GetPublishedStall(common.FindByIdRequest) returns (GetStallResponse) {};
+  rpc UpdateStallMetadata(UpdateStallMetadataRequest) returns (GetStallResponse) {};
+  rpc UpdateStallPosition(UpdateStallPositionRequest) returns (GetStallResponse) {};
+
 }
+
+
+message CreateStallRequest {
+  string floorplan_id = 1;
+  string name = 2;
+  optional market.StallStatus status = 3;
+  optional market.StallType type = 4;
+  optional market.StallClass clazz = 5;
+  optional double area = 6;
+  optional string shape = 7;
+  optional double x_axis = 8;
+  optional double y_axis = 9;
+  optional double w_axis = 10;
+  optional double h_axis = 11;
+  repeated Point points = 12;
+  optional string label = 13;
+  optional int32 rotate = 14;
+  optional double font_size = 15;
+}
+
+
 message Point {
   double x_axis = 1;
   double y_axis = 2;
@@ -79,6 +106,10 @@ message ListStallsResponse {
 }
 
 
+message GetStallRequest {
+  string stall_id = 1;
+  optional bool draft = 2;
+}
 
 message StallInfo {
   string stall_id = 1;
@@ -98,3 +129,24 @@ message StallInfo {
   string market_address = 16;
 }
 
+message UpdateStallMetadataRequest {
+  string stall_id = 1;
+  optional string name = 2;
+  optional market.StallStatus status = 3;
+  optional market.StallType type = 4;
+  optional market.StallClass clazz = 5;
+  optional double area = 6;
+}
+
+message UpdateStallPositionRequest {
+  string stall_id = 1;
+  string shape = 9;
+  optional double x_axis = 10;
+  optional double y_axis = 11;
+  optional double w_axis = 12;
+  optional double h_axis = 13;
+  repeated Point points = 14;
+  optional string label = 15;
+  optional int32 rotate = 16;
+  optional double font_size = 17;
+}

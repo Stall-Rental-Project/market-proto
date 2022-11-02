@@ -17,6 +17,8 @@ service MarketService {
   rpc GetMarket(GetMarketRequest) returns (GetMarketResponse) {};
   rpc UpdateMarket(UpsertMarketRequest) returns (UpdateMarketResponse) {};
   rpc DeleteMarket(common.FindByIdRequest) returns (common.NoContentResponse) {};
+  rpc PublishMarket(common.FindByIdRequest) returns (common.NoContentResponse) {};
+  rpc CountStalls(common.FindByIdRequest) returns (CountStallsResponse) {};
 
 }
 
