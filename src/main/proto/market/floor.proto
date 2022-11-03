@@ -10,9 +10,9 @@ option java_package = "com.srs.market";
 option java_multiple_files = true;
 
 service FloorService {
-  rpc CreateFloor(CreateFloorRequest) returns (CreateFloorResponse) {};
+  rpc CreateFloor(UpsertFloorRequest) returns (UpsertFloorResponse) {};
 
-  rpc UpdateFloor(UpdateFloorRequest) returns (UpdateFloorResponse) {};
+  rpc UpdateFloor(UpsertFloorRequest) returns (UpsertFloorResponse) {};
 
   rpc GetFloor(GetFloorRequest) returns (GetFloorResponse) {};
   rpc GetFloorCodeAndMarketCode(common.FindByIdRequest) returns (GetFloorCodeAndMarketCodeResponse) {};
@@ -29,11 +29,11 @@ service FloorService {
 ///////////////////////////////////////////////////////////////////
 message Floor {
   string floorplan_id = 1;
-  string name = 2;
+  string floor_name = 2;
   string code = 3;
-  string image = 4;
-  string previous_version = 5;
-  string floor_data = 6;
+  string image_name = 4;
+  string image_url=5;
+  string previous_version = 6;
   repeated market.Stall stalls = 7;
   int64 total_stalls = 10;
   int64 stall_with_detail = 11;
@@ -42,38 +42,18 @@ message Floor {
 ///////////////////////////////////////////////////////////////////
 // Create Floor
 ///////////////////////////////////////////////////////////////////
-message CreateFloorRequest {
+message UpsertFloorRequest {
   string market_id = 1;
-  string name = 2;
-  string image = 3;
+  string floorplan_id = 2;
+  string floor_name = 3;
+  string image_url = 4;
+  string image_name = 5;
 }
 
-message CreateFloorResponse {
+message UpsertFloorResponse {
   message Data {
     string market_id = 1;
     string floorplan_id = 2;
-  }
-
-  bool success = 1;
-  oneof response {
-    Data data = 2;
-    common.Error error = 3;
-  }
-}
-
-///////////////////////////////////////////////////////////////////
-// Update Floor
-///////////////////////////////////////////////////////////////////
-message UpdateFloorRequest {
-  string floorplan_id = 1;
-  optional string name = 2;
-  optional string image = 3;
-  optional string floor_data = 4;
-}
-
-message UpdateFloorResponse {
-  message Data {
-    string floorplan_id = 1;
   }
 
   bool success = 1;
