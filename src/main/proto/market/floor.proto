@@ -126,5 +126,4 @@ message GetFloorCodeAndMarketCodeResponse {
 
 message GetPublishedFloorRequest {
   string id = 1;
-  bool review_mode = 2;
 }
