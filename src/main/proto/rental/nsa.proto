@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package rental;
+
+import "common/common.proto";
+import "market/constant.proto";
+import "rental/constant.proto";
+
+option go_package = "gateway-service/client/rental";
+option java_package = "com.srs.rental";
+option java_multiple_files = true;
+
+service NSAService {
+  // unary
+  rpc SubmitApplication(SubmitApplicationRequest) returns (GetApplicationResponse){};
+  rpc SubmitApplicationDocs(SubmitApplicationDocsRequest) returns (common.NoContentResponse){};
+  rpc SubmitApplicationPayment(SubmitApplicationPaymentRequest) returns (common.NoContentResponse){};
+  rpc SubmitOrderPayment(SubmitOrderPaymentRequest) returns (common.NoContentResponse){};
+
+  rpc CheckExistApplication(CheckExistApplicationRequest) returns (common.BooleanResponse){};
+  rpc CheckExistApplications(CheckExistApplicationsRequest) returns (CheckExistApplicationsResponse){};
+
+  rpc GetApplication(common.FindByIdRequest) returns (GetApplicationResponse){};
+
+  rpc UpdateApplication(SubmitApplicationRequest) returns (GetApplicationResponse){};
+}
+
+/* Step 1: Submit Application */
+message SubmitApplicationRequest {
+  ApplicationOwner owner = 1;
+
+  string market_code = 2;
+  market.MarketType market_type = 3;
+  market.MarketClass market_class = 4;
+
+  string floor_code = 5;
+
+  string stall_code = 6;
+  market.StallType stall_type = 7;
+  market.StallClass stall_class = 8;
+  double stall_area = 9;
+
+
+  repeated Member members = 10;
+
+  bool owned_any_stall = 11;
+  string owned_stall_info = 12;
+  bool pay_tax_previous = 13;
+  string pay_tax_previous_reason = 14;
+  bool forced_terminate_previous = 15;
+  string forced_terminate_reason = 16;
+  bool exchange_rent_stall = 17;
+  string exchange_rent_stall_name = 18;
+  bool convicted_violate_law = 19;
+  string convicted_violate_law_reason = 20;
+  bool administrative_criminal = 21;
+  string administrative_criminal_reason = 22;
+  string source_of_capital = 23;
+  string capital = 24;
+
+  bool draft = 25;
+  string application_id = 26;
+
+}
+
+/* Step 2: Submit application required docs */
+message SubmitApplicationDocsRequest {
+  string application_id = 1;
+  string proof_of_residencies = 2;
+  string birth_certificate = 3;
+  string picture = 4;
+  string identification=5;
+  bool draft = 6;
+}
+
+/* Step 3: Submit application payment */
+message SubmitApplicationPaymentRequest {
+  string application_id = 1;
+  rental.PaymentMethod payment_method = 2;
+  string proof_of_transfer = 3;
+  bool draft = 4;
+}
+
+/* Step 5: Submit order payment */
+message SubmitOrderPaymentRequest {
+  string application_id = 1;
+  string or_number = 2;
+  string or_proof = 3;
+}
+
+
+/* Check exist application */
+message CheckExistApplicationRequest {
+  string market_code = 1;
+  string floor_code = 2;
+  string stall_code = 3;
+}
+
+message CheckExistApplicationsRequest {
+  message Searcher {
+    string market_code = 1;
+    string floor_code = 2;
+    string stall_code = 3;
+  }
+  repeated Searcher searchers = 1;
+}
+
+message CheckExistApplicationsResponse {
+  oneof response {
+    CheckExistApplicationsSuccess success_response = 1;
+    common.ErrorResponse   error_response = 2;
+  }
+}
+
+message CheckExistApplicationsSuccess {
+  message Response {
+    string market_code = 1;
+    string floor_code = 2;
+    string stall_code = 3;
+    bool status = 4;
+  }
+  repeated Response data = 1;
+}
+
+message GetApplicationResponse {
+  message Data {
+    Application application = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}

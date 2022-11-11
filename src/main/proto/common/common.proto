@@ -116,6 +116,17 @@ message PageRequest {
   string direction = 4;
 }
 
+message BooleanResponse {
+  oneof response {
+    BooleanSuccessResponse success_response = 1;
+    ErrorResponse   error_response = 2;
+  }
+}
+
+message BooleanSuccessResponse {
+  bool  result = 1;
+}
+
 message PageResponse {
   message Data {
     int32 page = 1;

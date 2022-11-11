@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package rental;
+
+import "common/common.proto";
+
+option go_package = "gateway-service/client/rental";
+option java_package = "com.srs.rental";
+option java_multiple_files = true;
+
+service ApplicationService {
+  rpc ListApplications(ListApplicationRequest) returns (common.PageResponse){};
+}
+
+/* List Application */
+message ListApplicationRequest {
+  common.PageRequest  page_request = 1;
+  string code = 2; // application code
+  string first_name = 3;
+  string last_name = 4;
+}

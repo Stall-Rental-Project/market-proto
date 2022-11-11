@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package rental;
+import "market/constant.proto";
 
 option go_package = "gateway-service/client/rental";
 option java_package = "com.srs.rental";
@@ -22,3 +23,188 @@ enum OtherRateDetail {
   REPAIR_PERMIT_FEE = 4;
 }
 
+enum Sex {
+  MALE = 0;
+  FEMALE = 1;
+}
+
+enum CivilStatus {
+  SINGLE = 0;
+  MARRIED = 1;
+  SEPARATED = 2;
+  WIDOW = 3;
+}
+enum PaymentStatus {
+  P_PENDING_PAYMENT = 0;
+  P_FOR_PAYMENT_VERIFICATION = 1;
+  P_PAYMENT_INFO_REQUESTED = 2;
+  P_PAID = 3;
+}
+
+enum LeaseStatus {
+  WAITING = 0;
+  ACTIVE = 1;
+  FOR_TERMINATION = 2;
+  TERMINATED = 3;
+  INACTIVE = 4;
+  RENEWED = 5;
+}
+enum ApplicationType {
+  NEW_STALL_APP = 0;
+  RENEWAL_STALL_APP = 1;
+  TRANSFER_STALL_APP = 2;
+  STALL_EXTENSION = 4;
+  REPAIR_PERMIT = 5;
+  APP_TO_FRANCHISE = 6;
+  RENEWAL_APP_TO_FRANCHISE = 7;
+  HAWKER_REGISTRATION_APP = 8;
+  HAWKER_PERMIT_APP = 9;
+  RENEWAL_HAWKER_PERMIT_APP = 10;
+  RENEWAL_HAWKER_PERMIT_REGISTRATION = 11;
+  HAWKER_ASSOCIATION = 12;
+  MARKET_OPERATOR_APP = 13;
+  RENEWAL_MARKET_OPERATOR_APP = 14;
+  MANAGE_MARKET_OPERATOR = 15;
+}
+enum WorkflowStatus {
+  ACCEPT_RECOMMENDATION = 0;
+  ADDITIONAL_INFO_REQUESTED = 1;
+  APPEAL_SUBMITTED = 2;
+  APPROVED = 3;
+  CLEARED = 4;
+  CLOSED = 5;
+  DISAPPROVED = 6;
+  FOR_CLEARANCE = 7;
+  FOR_FINAL_APPROVAL = 8;
+  FOR_INTERVIEW = 9;
+  FOR_MARKET_CLASSIFICATION = 10;
+  FOR_PAYMENT_VERIFICATION = 11;
+  FOR_REVIEW = 12;
+  IN_PROGRESS = 13;
+  MARKET_CLASSIFIED = 14;
+  NEW = 15;
+  PAYMENT_CONFIRMED = 16;
+  PENDING_PAYMENT = 17;
+  REVIEWED = 18;
+  PAYMENT_INFO_REQUESTED = 19;
+  CANCELLED = 20;
+  EXPIRED = 21;
+  FOR_INSPECTION = 22;
+  PENDING_SETTLEMENT = 23;
+  VENDING_INFORMATION_REQUESTED = 24;
+  FOR_RECOMMENDATORY_APPROVAL = 25;
+  FOR_INITIAL_REVIEW = 26;
+  INFORMATION_REQUESTED = 27;
+}
+
+
+
+enum PaymentMethod {
+  INVALID_METHOD = 0;
+  MANUAL = 1;
+  ONLINE = 2;
+}
+message Member {
+  string name = 1;
+  int32 age = 2;
+  string member_id = 3;
+}
+message Application {
+  string application_id = 1;
+  string code = 2; // application generated code
+  ApplicationOwner owner = 3;
+
+  string market_code = 4;
+  string market_name = 5; // fetched from Market service
+  market.MarketType market_type = 6;
+  market.MarketClass market_class = 7;
+
+  string floor_code = 8;
+  string floor_name = 9; // fetched from Market service
+
+  string stall_code = 10;
+  market.StallType stall_type = 11;
+  string stall_name = 12; // fetched from Market service
+  double stall_area = 13;
+  market.StallClass stall_class = 14;
+
+
+  rental.ApplicationType type = 18;
+  int32 status = 19; // references to WorkflowStatus enum
+
+  repeated Member members = 20;
+
+  string created_at = 22;
+  string created_by = 96;
+
+  // Other occupation or source of income
+  string other_occupation = 23;
+  bool owned_any_stall = 24;
+  string owned_stall_info = 25;
+  bool pay_tax_previous = 26;
+  string pay_tax_previous_reason = 27;
+  bool forced_terminate_previous = 28;
+  string forced_terminate_reason = 29;
+  bool exchange_rent_stall = 30;
+  string exchange_rent_stall_name = 31;
+  bool convicted_violate_law = 32;
+  string convicted_violate_law_reason = 33;
+  bool administrative_criminal = 34;
+  string administrative_criminal_reason = 35;
+  string capital = 36;
+  string source_of_capital = 95;
+  string item_type = 37; // what stallholder is going to sell
+
+  string proof_of_residencies = 38; // URL
+  string birth_certificate = 39; // URL
+  string picture = 40; // URL
+  rental.PaymentMethod payment_method = 41;
+  string proof_of_transfer = 42;
+  string identification = 43; // Unknown/Misleading field ~~
+
+  // Rate/Fee calculated values
+//  string or_number = 44;
+//  string or_proof = 45; // URL, submitted at Step 5
+//  string signed_contract = 46; // URL, submitted at Step 6
+
+  double initial_fee = 47;
+//  double monthly_fee = 48; // Calculated dynamically from rate management module
+//  double security_fee = 49;
+//  double total_amount_due = 50;
+//
+  // Application in-lease only
+  string lease_code = 51;
+  rental.LeaseStatus lease_status = 52;
+  string lease_start_date = 53; // in form of 1970-01-01T00:00:00Z (yyyy-MM-ddThh:mm:ssZ)
+  string lease_end_date = 62;
+
+  rental.PaymentStatus current_payment_status = 55; // only set when accessing Market Lease - related APIs
+
+  string market_address = 59; // fetched from Market service
+
+  string approved_date = 61;
+
+  bool draft = 63; // used in NSA & RSA step 1
+}
+
+message ApplicationOwner {
+  string first_name = 1;
+  string middle_name = 2;
+  string last_name = 3;
+  int32 sex = 4;
+  int32 marital_status = 5;
+  string date_of_birth = 7;
+  string place_of_birth = 8;
+  string farther_name = 11;
+  string mother_name = 12;
+  string house_number = 13;
+  string street = 14;
+  string province = 15;
+  string city = 17;
+  string ward = 18;
+  string zipcode = 19;
+  string email = 21;
+  string user_id = 22;
+  int32 age = 23; // calculated from date_of_birth
+  string district=24;
+}

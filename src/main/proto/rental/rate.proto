@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package rental;
 
-import "google/protobuf/empty.proto";
 import "common/common.proto";
 import "market/constant.proto";
 import "rental/constant.proto";

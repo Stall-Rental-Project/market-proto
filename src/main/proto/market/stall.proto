@@ -15,6 +15,9 @@ service StallService {
   rpc GetPublishedStall(common.FindByIdRequest) returns (GetStallResponse) {};
   rpc UpdateStallMetadata(UpdateStallMetadataRequest) returns (GetStallResponse) {};
   rpc UpdateStallPosition(UpdateStallPositionRequest) returns (GetStallResponse) {};
+  rpc DeleteStall(common.FindByIdRequest) returns (common.NoContentResponse) {};
+  rpc GetStallInfo(GetStallInfoRequest) returns (GetStallInfoResponse) {};
+  rpc ListStallsInfo(ListStallsInfoRequest) returns (ListStallsInfoResponse) {};
 
 }
 
@@ -150,3 +153,38 @@ message UpdateStallPositionRequest {
   optional int32 rotate = 16;
   optional double font_size = 17;
 }
+message GetStallInfoRequest {
+  StallSearcher searcher = 1;
+}
+message StallSearcher {
+  string market_code = 1;
+  string floor_code = 2;
+  string stall_code = 3;
+}
+message GetStallInfoResponse {
+  message Data {
+    StallInfo stall = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message ListStallsInfoRequest {
+  repeated StallSearcher searchers = 1;
+}
+message ListStallsInfoResponse {
+  message Data {
+    repeated StallInfo stalls = 1;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
