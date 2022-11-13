@@ -2,12 +2,9 @@ syntax = "proto3";
 
 package rental;
 
-import "google/protobuf/empty.proto";
 import "common/common.proto";
 import "rental/constant.proto";
 import "rental/nsa.proto";
-import "market/constant.proto";
-import "market/stall.proto";
 
 option go_package = "gateway-service/client/rental";
 option java_package = "com.srs.rental";

@@ -22,6 +22,9 @@ service NSAService {
   rpc GetApplication(common.FindByIdRequest) returns (GetApplicationResponse){};
 
   rpc UpdateApplication(SubmitApplicationRequest) returns (GetApplicationResponse){};
+
+  rpc ConfirmApplication(ConfirmApplicationRequest) returns (common.NoContentResponse){};
+
 }
 
 /* Step 1: Submit Application */
@@ -68,7 +71,7 @@ message SubmitApplicationDocsRequest {
   string proof_of_residencies = 2;
   string birth_certificate = 3;
   string picture = 4;
-  string identification=5;
+  string identification = 5;
   bool draft = 6;
 }
 
@@ -126,4 +129,10 @@ message GetApplicationResponse {
     Data data = 2;
     common.Error error = 3;
   }
+}
+
+message ConfirmApplicationRequest{
+  string application_id = 1;
+  bool is_approved = 2;
+  string comment = 3;
 }
