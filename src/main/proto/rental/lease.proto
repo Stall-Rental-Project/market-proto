@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package rental;
+
+import "google/protobuf/empty.proto";
+import "common/common.proto";
+import "rental/constant.proto";
+import "rental/nsa.proto";
+import "market/constant.proto";
+import "market/stall.proto";
+
+option go_package = "gateway-service/client/rental";
+option java_package = "com.srs.rental";
+option java_multiple_files = true;
+
+service LeaseService {
+  rpc ListLeases(ListLeasesRequest) returns (common.PageResponse) {};
+
+  rpc GetLease(common.FindByIdRequest) returns (rental.GetApplicationResponse) {};
+}
+
+message ListLeasesRequest {
+  common.PageRequest page_request = 1; // sort by firstName, lastName
+  string lease_code = 2;
+  string first_name = 3;
+  string last_name = 4;
+  repeated string market_codes = 5;
+  repeated rental.LeaseStatus lease_status = 6;
+}

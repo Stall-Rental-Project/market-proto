@@ -15,7 +15,6 @@ service NSAService {
   rpc SubmitApplication(SubmitApplicationRequest) returns (GetApplicationResponse){};
   rpc SubmitApplicationDocs(SubmitApplicationDocsRequest) returns (common.NoContentResponse){};
   rpc SubmitApplicationPayment(SubmitApplicationPaymentRequest) returns (common.NoContentResponse){};
-  rpc SubmitOrderPayment(SubmitOrderPaymentRequest) returns (common.NoContentResponse){};
 
   rpc CheckExistApplication(CheckExistApplicationRequest) returns (common.BooleanResponse){};
   rpc CheckExistApplications(CheckExistApplicationsRequest) returns (CheckExistApplicationsResponse){};
@@ -81,12 +80,7 @@ message SubmitApplicationPaymentRequest {
   bool draft = 4;
 }
 
-/* Step 5: Submit order payment */
-message SubmitOrderPaymentRequest {
-  string application_id = 1;
-  string or_number = 2;
-  string or_proof = 3;
-}
+
 
 
 /* Check exist application */

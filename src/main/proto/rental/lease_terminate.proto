@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package rental;
+
+option go_package = "gateway-service/client/rental";
+option java_package = "com.srs.rental";
+option java_multiple_files = true;
+
+import "common/common.proto";
+import "rental/constant.proto";
+
+service LeaseTerminationService {
+  rpc GetLeaseTermination(common.FindByIdRequest) returns (GetLeaseTerminationResponse) {};
+  rpc CreateLeaseTermination(CreateLeaseTerminationRequest) returns (common.NoContentResponse) {};
+  rpc ProceedLeaseTermination(ProceedLeaseTerminationRequest) returns (common.NoContentResponse) {};
+}
+
+message LeaseTermination {
+  string termination_id = 1;
+  string application_id = 2;
+  string reason = 3;
+  string end_date = 4;
+  bool accepted = 5;
+  string created_by = 6;
+  rental.TerminationStatus status = 7;
+}
+
+message GetLeaseTerminationResponse {
+  message Data {
+    bool exist = 1;
+    LeaseTermination termination = 2;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
+message CreateLeaseTerminationRequest {
+  string application_id = 1;
+  string reason = 2;
+  string end_date = 3; // in form of yyyy-MM-ddTHH:mm:ssXXX
+  bool accepted = 4;
+}
+
+message ProceedLeaseTerminationRequest {
+  string termination_id = 1;
+  bool accepted = 2;
+}

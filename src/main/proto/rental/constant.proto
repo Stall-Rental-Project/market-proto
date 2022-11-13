@@ -23,6 +23,13 @@ enum OtherRateDetail {
   REPAIR_PERMIT_FEE = 4;
 }
 
+enum TerminationStatus {
+  T_REQUESTED = 0;
+  T_CANCELLED = 1;
+  T_PENDING = 2;
+  T_CLOSED = 3;
+}
+
 enum Sex {
   MALE = 0;
   FEMALE = 1;
@@ -67,37 +74,13 @@ enum ApplicationType {
   MANAGE_MARKET_OPERATOR = 15;
 }
 enum WorkflowStatus {
-  ACCEPT_RECOMMENDATION = 0;
-  ADDITIONAL_INFO_REQUESTED = 1;
-  APPEAL_SUBMITTED = 2;
-  APPROVED = 3;
-  CLEARED = 4;
-  CLOSED = 5;
-  DISAPPROVED = 6;
-  FOR_CLEARANCE = 7;
-  FOR_FINAL_APPROVAL = 8;
-  FOR_INTERVIEW = 9;
-  FOR_MARKET_CLASSIFICATION = 10;
-  FOR_PAYMENT_VERIFICATION = 11;
-  FOR_REVIEW = 12;
-  IN_PROGRESS = 13;
-  MARKET_CLASSIFIED = 14;
-  NEW = 15;
-  PAYMENT_CONFIRMED = 16;
-  PENDING_PAYMENT = 17;
-  REVIEWED = 18;
-  PAYMENT_INFO_REQUESTED = 19;
-  CANCELLED = 20;
-  EXPIRED = 21;
-  FOR_INSPECTION = 22;
-  PENDING_SETTLEMENT = 23;
-  VENDING_INFORMATION_REQUESTED = 24;
-  FOR_RECOMMENDATORY_APPROVAL = 25;
-  FOR_INITIAL_REVIEW = 26;
-  INFORMATION_REQUESTED = 27;
+  NEW=0;
+  IN_PROGRESS=1;
+  PAYMENT_INFO_REQUESTED = 2;
+  FOR_PAYMENT_VERIFICATION = 3;
+  APPROVED = 4;
+  DISAPPROVED = 5;
 }
-
-
 
 enum PaymentMethod {
   INVALID_METHOD = 0;
@@ -130,7 +113,7 @@ message Application {
 
 
   rental.ApplicationType type = 18;
-  int32 status = 19; // references to WorkflowStatus enum
+  WorkflowStatus status = 19; // references to WorkflowStatus enum
 
   repeated Member members = 20;
 
