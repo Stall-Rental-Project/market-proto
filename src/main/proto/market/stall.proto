@@ -14,7 +14,7 @@ service StallService {
   rpc GetStall(GetStallRequest) returns (GetStallResponse) {};
   rpc GetPublishedStall(common.FindByIdRequest) returns (GetStallResponse) {};
   rpc UpdateStallMetadata(UpdateStallMetadataRequest) returns (GetStallResponse) {};
-  rpc UpdateStallPosition(UpdateStallPositionRequest) returns (GetStallResponse) {};
+  rpc UpdateStallPosition(CreateStallRequest) returns (GetStallResponse) {};
   rpc DeleteStall(common.FindByIdRequest) returns (common.NoContentResponse) {};
   rpc GetStallInfo(GetStallInfoRequest) returns (GetStallInfoResponse) {};
   rpc ListStallsInfo(ListStallsInfoRequest) returns (ListStallsInfoResponse) {};
@@ -24,64 +24,47 @@ service StallService {
 
 message CreateStallRequest {
   string floorplan_id = 1;
-  string name = 2;
-  optional market.StallStatus status = 3;
-  optional market.StallType type = 4;
-  optional market.StallClass clazz = 5;
-  optional double area = 6;
-  optional string shape = 7;
-  optional double x_axis = 8;
-  optional double y_axis = 9;
-  optional double w_axis = 10;
-  optional double h_axis = 11;
-  repeated Point points = 12;
-  optional string label = 13;
-  optional int32 rotate = 14;
-  optional double font_size = 15;
+  optional double x = 2;
+  optional double y = 3;
+  optional double width = 4;
+  optional double height = 5;
+  optional int32 rotation = 6;
+  string stall_id = 7;
 }
 
 
-message Point {
-  double x_axis = 1;
-  double y_axis = 2;
-}
 ///////////////////////////////////////////////////////////////////
 // Shared payloads
 ///////////////////////////////////////////////////////////////////
 message Stall {
   string stall_id = 1;
   string code = 2;
-  string name = 3;
-  market.StallStatus status = 4; // Default to Inactive
-  market.StallType type = 5; // Default to Temporary
-  market.StallClass clazz = 6; // Default to Regular
-  market.StallState state = 7;
+  string stall_name = 3;
+  optional market.StallStatus stall_status = 4;
+  optional market.StallType stall_type = 5;
+  optional market.StallClass stall_class = 6;
+  market.StallState stall_state = 7;
   double area = 12;
   double monthly_fee = 13;
-  string previous_version = 14;
 
-  string floor_code = 17;
-  string market_code = 18;
-  market.StallLeaseStatus lease_status = 19;
+  string floor_code = 14;
+  string market_code = 15;
+  market.StallLeaseStatus lease_status = 16;
 
   // Position data
-  string shape = 20;
-  double x_axis = 21;
-  double y_axis = 22;
-  double w_axis = 23;
-  double h_axis = 24;
-  repeated Point points = 25;
-  string label = 26;
-  int32 rotate = 27;
-  double font_size = 30;
+  double x = 17;
+  double y = 18;
+  double width = 19;
+  double height = 20;
+  int32 rotation = 21;
 
-  market.MarketClass market_class = 28;
-  market.MarketType market_type = 29;
+  market.MarketClass market_class = 22;
+  market.MarketType market_type = 23;
 
-  string occupied_by = 31;
+  string occupied_by = 24;
 
   // Fetch from rental service
-  string stall_holder_name = 32;
+  string stall_holder_name = 25;
 }
 
 message GetStallResponse {
@@ -134,25 +117,13 @@ message StallInfo {
 
 message UpdateStallMetadataRequest {
   string stall_id = 1;
-  optional string name = 2;
-  optional market.StallStatus status = 3;
-  optional market.StallType type = 4;
-  optional market.StallClass clazz = 5;
+  optional string stall_name = 2;
+  optional market.StallStatus stall_status = 3;
+  optional market.StallType stall_type = 4;
+  optional market.StallClass stall_class = 5;
   optional double area = 6;
 }
 
-message UpdateStallPositionRequest {
-  string stall_id = 1;
-  string shape = 9;
-  optional double x_axis = 10;
-  optional double y_axis = 11;
-  optional double w_axis = 12;
-  optional double h_axis = 13;
-  repeated Point points = 14;
-  optional string label = 15;
-  optional int32 rotate = 16;
-  optional double font_size = 17;
-}
 message GetStallInfoRequest {
   StallSearcher searcher = 1;
 }

@@ -88,23 +88,6 @@ enum StallLeaseStatus {
   STALL_OCCUPIED = 2;
 }
 
-enum HawkerSiteType {
-  NOT_HAWKER = 0;
-  VENDING_SITE = 1;
-  AMBULANT = 2;
-}
-
-enum DayOfWeek {
-  INVALID_DAY = 0;
-  MONDAY = 1;
-  TUESDAY = 2;
-  WEDNESDAY = 3;
-  THURSDAY = 4;
-  FRIDAY = 5;
-  SATURDAY = 6;
-  SUNDAY = 7;
-}
-
 message CountStallsResponse {
   message Data {
     int64 total_stalls = 1;
