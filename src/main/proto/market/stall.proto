@@ -65,6 +65,7 @@ message Stall {
 
   // Fetch from rental service
   string stall_holder_name = 25;
+  bool is_updated_detail=26;
 }
 
 message GetStallResponse {
