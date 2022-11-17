@@ -59,23 +59,10 @@ enum LeaseStatus {
 enum ApplicationType {
   NEW_STALL_APP = 0;
   RENEWAL_STALL_APP = 1;
-  TRANSFER_STALL_APP = 2;
-  STALL_EXTENSION = 4;
-  REPAIR_PERMIT = 5;
-  APP_TO_FRANCHISE = 6;
-  RENEWAL_APP_TO_FRANCHISE = 7;
-  HAWKER_REGISTRATION_APP = 8;
-  HAWKER_PERMIT_APP = 9;
-  RENEWAL_HAWKER_PERMIT_APP = 10;
-  RENEWAL_HAWKER_PERMIT_REGISTRATION = 11;
-  HAWKER_ASSOCIATION = 12;
-  MARKET_OPERATOR_APP = 13;
-  RENEWAL_MARKET_OPERATOR_APP = 14;
-  MANAGE_MARKET_OPERATOR = 15;
 }
 enum WorkflowStatus {
-  NEW=0;
-  IN_PROGRESS=1;
+  NEW = 0;
+  IN_PROGRESS = 1;
   PAYMENT_INFO_REQUESTED = 2;
   FOR_PAYMENT_VERIFICATION = 3;
   APPROVED = 4;
@@ -146,23 +133,23 @@ message Application {
   string identification = 43; // Unknown/Misleading field ~~
 
   // Rate/Fee calculated values
-//  string or_number = 44;
-//  string or_proof = 45; // URL, submitted at Step 5
-//  string signed_contract = 46; // URL, submitted at Step 6
+  //  string or_number = 44;
+  //  string or_proof = 45; // URL, submitted at Step 5
+  //  string signed_contract = 46; // URL, submitted at Step 6
 
   double initial_fee = 47;
-//  double monthly_fee = 48; // Calculated dynamically from rate management module
-//  double security_fee = 49;
-//  double total_amount_due = 50;
-//
+  //  double monthly_fee = 48; // Calculated dynamically from rate management module
+  //  double security_fee = 49;
+  double total_amount_due = 50;
+  //
   // Application in-lease only
   string lease_code = 51;
   rental.LeaseStatus lease_status = 52;
   string lease_start_date = 53; // in form of 1970-01-01T00:00:00Z (yyyy-MM-ddThh:mm:ssZ)
-  string lease_end_date = 62;
+  string lease_end_date = 54;
 
   rental.PaymentStatus current_payment_status = 55; // only set when accessing Market Lease - related APIs
-
+  string reminded_payment_date = 56;
   string market_address = 59; // fetched from Market service
 
   string approved_date = 61;
@@ -189,5 +176,7 @@ message ApplicationOwner {
   string email = 21;
   string user_id = 22;
   int32 age = 23; // calculated from date_of_birth
-  string district=24;
+  string district = 24;
+  string telephone = 25;
+  string full_name = 26;
 }

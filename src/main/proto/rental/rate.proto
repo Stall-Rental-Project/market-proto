@@ -21,6 +21,7 @@ service RateService {
 
   rpc DeleteRate(common.FindByIdRequest) returns (common.NoContentResponse) {};
 
+  rpc CalculateRates(CalculateRateRequest) returns (CalculateRateResponse) {};
 
 }
 
@@ -89,3 +90,34 @@ message UpsertRateRequest {
   StallRightsRate rights_rate = 7;
   StallSecurityBond security_bond = 8;
 }
+message CalculateRateRequest {
+  rental.ApplicationType application_type = 1;
+  market.MarketClass market_class = 2;
+  market.StallClass stall_class = 3;
+  market.StallType stall_type = 4;
+  string stall_section_id = 5;
+  double stall_area = 6;
+  string application_id = 7;
+  repeated rental.FeeType includes = 8;
+}
+enum FeeType {
+  NSA_INITIAL_FEE = 0;
+  NSA_MONTHLY_FEE = 1;
+  NSA_SECURITY_FEE = 2;
+  NSA_TOTAL_AMOUNT_DUE = 3;
+}
+message CalculateRateResponse {
+  message Data {
+    double initial_fee = 1;
+    double monthly_fee = 2;
+    double security_fee = 3;
+    double total_amount_due = 4;
+  }
+
+  bool success = 1;
+  oneof response {
+    Data data = 2;
+    common.Error error = 3;
+  }
+}
+
