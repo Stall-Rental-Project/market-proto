@@ -180,3 +180,8 @@ message ApplicationOwner {
   string telephone = 25;
   string full_name = 26;
 }
+
+enum ScheduledTask {
+  TASK_LEASE_TERMINATE = 0;
+  TASK_LEASE_EXPIRED = 1;
+}

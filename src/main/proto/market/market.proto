@@ -34,7 +34,7 @@ message Market {
   string name = 2;
   market.Location location = 3;
   market.MarketType type = 4;
-  market.MarketStatus status = 5;
+  common.Status status = 5;
   market.MarketState state = 6;
   bool has_published = 7;
   bool has_draft = 8;
@@ -78,7 +78,7 @@ message UpsertMarketRequest {
   optional market.Supervisor supervisor = 4;
   optional market.MarketType type = 5;
   optional market.MarketClass clazz = 6;
-  optional market.MarketStatus status = 7;
+  optional common.Status status = 7;
   optional string google_map = 8;
 }
 

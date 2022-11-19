@@ -111,7 +111,7 @@ message ListMarketsRequest {
   common.PageRequest page_request = 1;
   optional string search_term = 2;
   repeated market.MarketType types = 3;
-  repeated market.MarketStatus statuses = 4;
+  repeated common.Status statuses = 4;
   bool all = 5;
   repeated string codes = 6;
   bool published_only = 7;
