@@ -84,8 +84,7 @@ enum Choice {
 }
 enum StallLeaseStatus {
   STALL_AVAILABLE = 0;
-  STALL_RESERVED = 1;
-  STALL_OCCUPIED = 2;
+  STALL_OCCUPIED = 1;
 }
 
 message CountStallsResponse {

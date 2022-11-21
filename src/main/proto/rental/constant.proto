@@ -54,7 +54,6 @@ enum LeaseStatus {
   FOR_TERMINATION = 2;
   TERMINATED = 3;
   INACTIVE = 4;
-  RENEWED = 5;
 }
 enum ApplicationType {
   NEW_STALL_APP = 0;
