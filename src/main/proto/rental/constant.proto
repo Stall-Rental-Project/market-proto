@@ -66,6 +66,7 @@ enum WorkflowStatus {
   FOR_PAYMENT_VERIFICATION = 3;
   APPROVED = 4;
   DISAPPROVED = 5;
+  CANCELLED = 6;
 }
 
 enum PaymentMethod {
