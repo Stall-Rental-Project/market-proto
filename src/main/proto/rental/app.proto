@@ -10,7 +10,7 @@ option java_multiple_files = true;
 
 service ApplicationService {
   rpc ListApplications(ListApplicationRequest) returns (common.PageResponse){};
-  rpc CancelApplication(CancelApplicationRequest) returns (common.NoContentResponse) {};
+  rpc CancelApplication(common.FindByIdRequest) returns (common.NoContentResponse) {};
 }
 
 /* List Application */
@@ -19,9 +19,4 @@ message ListApplicationRequest {
   string code = 2; // application code
   string first_name = 3;
   string last_name = 4;
-}
-
-message CancelApplicationRequest {
-  string application_id = 1;
-  string cancel_reason = 2;
 }
