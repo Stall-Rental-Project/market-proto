@@ -139,7 +139,7 @@ message Application {
 
   double initial_fee = 47;
   //  double monthly_fee = 48; // Calculated dynamically from rate management module
-  //  double security_fee = 49;
+  double security_fee = 49;
   double total_amount_due = 50;
   //
   // Application in-lease only
