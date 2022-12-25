@@ -28,7 +28,7 @@ message CreateStallRequest {
   optional double y = 3;
   optional double width = 4;
   optional double height = 5;
-  optional int32 rotation = 6;
+  optional double rotation = 6;
   string stall_id = 7;
 }
 
@@ -56,7 +56,7 @@ message Stall {
   double y = 18;
   double width = 19;
   double height = 20;
-  int32 rotation = 21;
+  double rotation = 21;
 
   market.MarketClass market_class = 22;
   market.MarketType market_type = 23;
