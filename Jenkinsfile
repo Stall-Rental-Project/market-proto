@@ -10,7 +10,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -s /root/.m2/settings.xml -q -U clean install -Dmaven.test.skip=true -P server'
+                sh 'mvn -s /root/.m2/settings.xml -q -U clean install deploy -Dmaven.test.skip=true'
             }
         }
     }
