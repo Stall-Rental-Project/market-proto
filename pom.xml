@@ -18,12 +18,12 @@
         <repository>
             <id>nexus-releases</id>
             <name>maven-releases</name>
-            <url> https://5166-116-103-68-223.ngrok-free.app /repository/maven-releases/</url>
+            <url>https://5166-116-103-68-223.ngrok-free.app /repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
             <name>maven-snapshots</name>
-            <url> https://5166-116-103-68-223.ngrok-free.app /repository/maven-snapshots/</url>
+            <url>https://5166-116-103-68-223.ngrok-free.app /repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
